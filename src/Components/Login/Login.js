@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 import './Login.css';
 
 function Login() {
   const [user, setUser] = useState({ phoneNumber: '' });
 
-  const loginHandler = e => {
-    e.preventDefault();
+  const changeHandler = e => {
+    setUser({ ...user, phoneNumber: e.target.value });
   };
 
-  let userNumber = {
-    phoneNumber: user.phoneNumber,
+  const submitHandler = () => {
+    console.log(user);
+    // use the API from Basis to send the otp to user.phoneNumber
+    // Axios.post('apiURL', user)
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
 
   return (
@@ -18,22 +27,29 @@ function Login() {
       <div className="login">
         <div className="loginContainer">
           <h2 className="heading">Women of Today</h2>
-          <form onClick={loginHandler}>
+          <form onSubmit={submitHandler}>
             <p>Please enter your mobile number to get started</p>
             <input
               name="phoneNumber"
               placeholder="Mobile Number"
-              pattern="[6-9]{3}-[0-9]{3}-[0-9]{4}"
+              pattern="[0-9]{10}"
               type="tel"
               minLength="10"
               maxLength="10"
               value={user.phoneNumber}
-              onChange={e => setUser({ ...user, phoneNumber: e.target.value })}
+              onChange={changeHandler}
               required
             />
             <div className="btnContainer">
               <Link to="/login">
-                <button disabled={user.phoneNumber.length < 10}>Get OTP</button>
+                <button
+                  disabled={user.phoneNumber.length < 10}
+                  className={
+                    user.phoneNumber.length < 10 ? 'btnDisabled' : 'button'
+                  }
+                >
+                  Get OTP
+                </button>
               </Link>
             </div>
           </form>
