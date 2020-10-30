@@ -11,15 +11,14 @@ function Login() {
   };
 
   const submitHandler = () => {
-    console.log(user);
     // use the API from Basis to send the otp to user.phoneNumber
-    // Axios.post('apiURL', user)
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    Axios.post('https://hiring.getbasis.co/candidate/users/phone', user)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (

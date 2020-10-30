@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import { Link, Route } from 'react-router-dom';
-
+import Axios from 'axios';
 import './OTPVerify.css';
 
 function OTPVerify() {
   const adminUser = {
-    otp: '1234',
+    otp: '1111',
   };
+
+  let userOtp;
 
   const [otp, setOtp] = useState(new Array(4).fill(''));
 
   const [isLogin, setIsLogin] = useState(false);
 
-  const Auth = () => setIsLogin(!isLogin);
+  const Auth = () => {
+    setIsLogin(!isLogin);
+  };
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -24,36 +27,23 @@ function OTPVerify() {
     }
   };
 
-  const verifyOTP = e => {
-    e.preventDefault();
-
-    // fetch('API', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accepted: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(otp),
-    // }).then(result => {
-    //   result.json().then(resp => {
-    //     console.log(resp.success.token);
-    //     localStorage.setItem('auth', JSON.stringify(resp.success.token));
-    //   });
-    // });
-
+  const verifyOTP = () => {
     if ((otp.length = 4)) {
-      let newOtp = otp.reduce((acc, curr) => {
+      userOtp = otp.reduce((acc, curr) => {
         return acc + curr;
       });
-
-      if (newOtp) {
-        if (newOtp === adminUser.otp) {
-          //Existing user
-        } else {
-          // Proceed to signup
-        }
-      }
     }
+    // use the API from Basis to verify the OTP
+    Axios.post(
+      'https://hiring.getbasis.co/candidate/users/phone/verify',
+      userOtp
+    )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
