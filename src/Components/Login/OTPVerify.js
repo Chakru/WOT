@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import './OTPVerify.css';
 
@@ -9,6 +9,10 @@ function OTPVerify() {
   };
 
   const [otp, setOtp] = useState(new Array(4).fill(''));
+
+  const [isLogin, setIsLogin] = useState(false);
+
+  const Auth = () => setIsLogin(!isLogin);
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -20,20 +24,35 @@ function OTPVerify() {
     }
   };
 
-  const handleSubmit = e => {
+  const verifyOTP = e => {
     e.preventDefault();
-    let newOtp;
+
+    // fetch('API', {
+    //   method: 'POST',
+    //   headers: {
+    //     Accepted: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(otp),
+    // }).then(result => {
+    //   result.json().then(resp => {
+    //     console.log(resp.success.token);
+    //     localStorage.setItem('auth', JSON.stringify(resp.success.token));
+    //   });
+    // });
+
     if ((otp.length = 4)) {
-      newOtp = otp.reduce((acc, curr) => {
+      let newOtp = otp.reduce((acc, curr) => {
         return acc + curr;
       });
-    }
-    if (newOtp === adminUser.otp) {
-      console.log('Loged In');
-      <Link to="/"></Link>;
-    } else {
-      <Link to="/login"></Link>;
-      console.log('UnAuth');
+
+      if (newOtp) {
+        if (newOtp === adminUser.otp) {
+          //Existing user
+        } else {
+          // Proceed to signup
+        }
+      }
     }
   };
 
@@ -51,13 +70,14 @@ function OTPVerify() {
                   name="otp"
                   maxLength="1"
                   key={index}
+                  value={data}
                   onChange={e => handleChange(e.target, index)}
                   onFocus={e => e.target.select()}
                 />
               );
             })}
             <div className="btnContainer">
-              <button onClick={handleSubmit}>Verify OTP</button>
+              <button onClick={verifyOTP}>Verify OTP</button>
             </div>
           </form>
         </div>
