@@ -1,15 +1,3 @@
-button {
-  border: none;
-  outline: none;
-  width: 100%;
-  padding: 15px 0;
-  color: #fff;
-  font-size: 16px;
-  letter-spacing: 1px;
-  background: #603bbb;
-  cursor: pointer;
-}
-
 .heading {
   position: absolute;
   top: 120px;
@@ -65,11 +53,6 @@ button {
 .login .loginContainer .btnContainer {
   width: 100%;
   padding: 24px 0;
-}
-
-.login .loginContainer .errorMsg {
-  color: red;
-  font-size: 16px;
 }
 
 .btnDisabled {
