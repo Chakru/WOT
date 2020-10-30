@@ -11,7 +11,7 @@ button {
 }
 
 .heading {
-  position: fixed;
+  position: absolute;
   top: 120px;
   left: 570px;
   color: #e9e9e9;
@@ -70,4 +70,8 @@ button {
 .login .loginContainer .errorMsg {
   color: red;
   font-size: 16px;
+}
+
+.btnDisabled {
+  cursor: not-allowed;
 }
